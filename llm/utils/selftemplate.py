@@ -1,6 +1,6 @@
 from typing import Dict, List
 from langchain.prompts.example_selector.base import BaseExampleSelector
-
+from langchain.prompts.chat import ChatPromptTemplate
 
 class CustomExampleSelector(BaseExampleSelector):
     """Custom example selector."""
@@ -13,3 +13,7 @@ class CustomExampleSelector(BaseExampleSelector):
         """Select examples based on custom logic."""
         # Implement custom logic here
         return examples
+    
+class CustomChatPromptTemplate():
+    pass
+
