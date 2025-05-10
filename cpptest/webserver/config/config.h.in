@@ -1,0 +1,2 @@
+#define PROJECT_VERSION @PROJECT_VERSION@
+// #cmakedefine DATE "2025.05.10"

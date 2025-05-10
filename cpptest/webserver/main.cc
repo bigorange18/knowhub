@@ -14,26 +14,23 @@
 #include <string>
 #include <math.h>
 #include <gflags/gflags.h>
-#include "lib/base.h"
+#include "include/base.h"
+#include "include/server.h"
 using namespace std;
 const int Months = 12;
 
 int main()
 {
+  Server sv = Server();
+  sv.Run();
   // 使用arange构造一个一维向量，再用reshape变换到5x5的矩阵
-  const float hight = 1.89e2;
-  std::cout << "身高:" << hight << std::endl;
-  std::cout << "\aOperation \"Hyperhype\" is now activated:" << std::endl;
-  float week[7] = {1., 2, 3, 4, 5, 6, 7};
-  week[4] = 100;
-  std::cout << week[1] << std::endl;
-  std::cout << sizeof(week) << std::endl;
-  char name[20];
-  string my_name;
-  cin.getline(name, 20);
-  std::cout << name << std::endl;
-  cout << "Please enter your name:" << endl;
-  cin >> my_name;
-  cout << "hell," << my_name << endl;
+  // vector<TaskState> v_ts;
+  // TaskState ts = {"shanghai", false, -1};
+  // v_ts.push_back(ts);
+  // TaskState *pt_ts = &ts;
+  // cout << pt_ts << endl;
+  // cout << pt_ts->name << endl;
+  // cout << pt_ts->is_running << endl;
+  // cout <<sizeof(pt_ts) << endl;
   return 0;
 }
