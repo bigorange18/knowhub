@@ -1,5 +1,1 @@
-cpptest/doc/C++ filter=lfs diff=lfs merge=lfs -text
-Primer filter=lfs diff=lfs merge=lfs -text
-plus第6版-中文版.pdf filter=lfs diff=lfs merge=lfs -text
-cpptest/doc/C++ filter=lfs diff=lfs merge=lfs -text
-cpptest/doc/C++ filter=lfs diff=lfs merge=lfs -text
+cpptest/doc/C++第6版-中文版.pdf filter=lfs diff=lfs merge=lfs -text
