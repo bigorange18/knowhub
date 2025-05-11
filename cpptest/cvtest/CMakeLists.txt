@@ -13,8 +13,8 @@ message(STATUS ${CMAKE_CURRENT_SOURCE_DIR})
 # message(${source})
 # set(SRC main.cc src/server.cc src/server.h)
 # 方式一:查找源文件
-# aux_source_directory(${PROJECT_SOURCE_DIR}/src SRC_LIST)
-# aux_source_directory(${PROJECT_SOURCE_DIR}/include HEADER_LIST)
+aux_source_directory(${PROJECT_SOURCE_DIR}/src SRC_LIST)
+aux_source_directory(${PROJECT_SOURCE_DIR}/include HEADER_LIST)
 # # 方式二:查找源文件
 # file(GLOB CC_SRC ${PROJECT_SOURCE_DIR}/src/*.cc)
 # file(GLOB HEAD_SRC ${PROJECT_SOURCE_DIR}/src/*.h)
