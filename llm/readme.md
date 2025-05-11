@@ -50,6 +50,31 @@ pytorch、
 
 
 
+### 提示工程
+
+提示词工程(Prompt Engineering) 是有技巧的使用提示词，从而最大限度地提高LLM相应的有效性、准确性。
+
+1. 编写清晰的说明
+2. 提供参考文本
+3. 将复杂的任务才分为更为简单的子任务
+4. 给模型思考
+5. 使用外部工具
+6. 系统地测试变化
+
+### AGT
+
+##### embedding
+
+语义相似的实体在空间中映射得更近，而不相似的实体映射得更远。
+
+```
+
+```
+
+
+
+
+
 # 自然语言处理
 
 ## 传统NLP方法
@@ -177,9 +202,27 @@ LLam-Factory
 
 # 面试
 
+### 工作要求
 
 
 
+- [x] python
+- [ ] Java
+- [ ] Linux
+- [ ] docker
+- [ ] Mysql/PostgreSQL
+- [ ] openAi
+- [ ] Embedding优化
+- [ ] RAG开发流程，具备检索（Retrieval）与生成（Generation）模块的开发
+  
+- [ ] 具备 Prompt 工程经验，能够编写高效、精准的 Prompt 模板，
+- [ ] Fine-tuning
+- [ ] Langchain
+- [ ] Llama
+- [ ] Qwen-Agent
+- [ ] Hugging Face
+- [ ] SFT
+- [ ] RLHF
 
 ## 算法题
 
