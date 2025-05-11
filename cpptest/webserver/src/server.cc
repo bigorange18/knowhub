@@ -3,6 +3,16 @@
 #include <time.h>
 #include "include/server.h"
 
+
+namespace GameViPer{
+template <class AnyType>
+void swap(AnyType &a, AnyType &b){
+    AnyType t;
+    t = a;
+    a = b;
+    b = t;
+}
+
 void test(){
     std::ofstream outfile;
     outfile.open("../data/1.txt");
@@ -49,16 +59,19 @@ void test3(){
 
 void test4(){
     // time start_t;
-    std::cout <<"Please enter a word \n";
-    char word;
-    std::cin >> word;
-    while (word != 'q')
-    {
-        std::cout << "Continuer enter a character\n";
-        std::cin >> word;
-    }
+    double a = 4;
+    double b = 6;
+    swap(a, b);
+    std::cout << a << b << std::endl;
     
 }
+
+Server::Server(){};
+
+Server::Server(std::string name){
+    server_name_ = name;
+}
+
 
 void Server::Run(){
     is_working = true;
@@ -67,3 +80,5 @@ void Server::Run(){
     test4();
 
 };
+
+} // namespace GameViper
