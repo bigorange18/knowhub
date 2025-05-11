@@ -21,7 +21,7 @@ const int Months = 12;
 
 int main()
 {
-  Server sv = Server();
+  GameViPer::Server sv = GameViPer::Server();
   sv.Run();
   // 使用arange构造一个一维向量，再用reshape变换到5x5的矩阵
   // vector<TaskState> v_ts;
