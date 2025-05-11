@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <time.h>
 #include "include/server.h"
 
 void test(){
@@ -47,11 +48,16 @@ void test3(){
 }
 
 void test4(){
-    int a;
-    int &b = a;
-    std::cout << &a << std::endl;
-    std::cout << &b << std::endl;
-
+    // time start_t;
+    std::cout <<"Please enter a word \n";
+    char word;
+    std::cin >> word;
+    while (word != 'q')
+    {
+        std::cout << "Continuer enter a character\n";
+        std::cin >> word;
+    }
+    
 }
 
 void Server::Run(){
