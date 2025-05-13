@@ -1,2 +1,2 @@
-cpptest/doc/C++第6版-中文版.pdf filter=lfs diff=lfs merge=lfs -text
+
 weights/test/yolov5n-seg.pt filter=lfs diff=lfs merge=lfs -text
