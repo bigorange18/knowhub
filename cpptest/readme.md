@@ -1,3 +1,29 @@
+### CMakeLists
+
+### 常用宏
+
+例如**Server**项目的工程目录：
+
+![image-20250514082335694](../.assert/image-20250514082335694.png)
+
+​		
+
+|         宏         |                      说明                      |
+| :----------------: | :--------------------------------------------: |
+|    PROJECT_NAME    |                   项目工程名                   |
+| PROJECT_SOURCE_DIR | 工程源码目录，就是CMakeLists.txt所在Server目录 |
+|  CAMKE_SOURCE_DIR  |             等价PROJECT_SOURCE_DIR             |
+|    _SOURCE_DIR     |             等价PROJECT_SOURCE_DIR             |
+| PROJECT_BINARY_DIR |        生成文件目录，例如~/Server/build        |
+|  CAMKE_BINARY_DIR  |             等价PROJECT_BINARY_DIR             |
+|    _BINARY_DIR     |                                                |
+|                    |                                                |
+|                    |                                                |
+|                    |                                                |
+|                    |                                                |
+|                    |                                                |
+
+```cmake
 cmake_minimum_required(VERSION 3.10)
 # ------------------------------基本信息------------------------------------------
 set(CMAKE_CXX_STANDARD 17)	# C++17
@@ -56,3 +82,6 @@ endif()
 # add_library(calc STATIC ${SRC_LIST})
 # 制作动态库文件
 # add_library(calc SHARED ${SRC_LIST})
+
+```
+
