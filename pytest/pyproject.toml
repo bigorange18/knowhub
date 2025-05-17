@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=58.0.4", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Mlpredictor"
+version = "0.1.0"
+description = "A simple machine learning predictor"
+authors = [{name = "orange", email = "chenorange2219@gmail.com"}]
+readme = "README.md"
+requires-python = ">3.6"
+dependencies = ["numpy", "scikit-learn"]
+
+
