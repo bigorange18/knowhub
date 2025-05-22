@@ -37,6 +37,9 @@ git clone https://ghp.ci/https://github.com/bigorange18/knowhub.git
 
 ---
 
+
+
+
 ## llm
 
 [跟着scratch学习llm基础知识](https://github.com/bigorange18/knowhub/tree/main/llm/LLMs-from-scratch "llm"), 从最基础的python语法，到embdding->transformer->llm都有讲解。

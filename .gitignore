@@ -2,3 +2,4 @@ llm/*.ipynb
 llm/.env
 *build/*
 *build
+.venv
