@@ -3,3 +3,4 @@ llm/.env
 *build/*
 *build
 .venv
+.gradio/*
