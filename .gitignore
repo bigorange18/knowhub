@@ -4,3 +4,6 @@ llm/.env
 *build
 .venv
 .gradio/*
+*.ckpt
+llm/torchlightning/MNIST/raw/*
+*_pycache__
