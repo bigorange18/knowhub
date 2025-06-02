@@ -32,4 +32,12 @@ class PersonalDataset(pl.LightningModule):
         ...
         self.train_dataset = None
 
-    def setup(self)
+    def setup(self):
+        ...
+
+    def __len__(self):
+        return len(self.train_dataset)
+    
+
+    def __getitem__(self, idx):
+        return self.train_dataset[idx]

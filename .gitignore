@@ -7,3 +7,6 @@ llm/.env
 *.ckpt
 llm/torchlightning/MNIST/raw/*
 *_pycache__
+llm/torchlightning/data/*
+llm/torchlightning/lightning_logs/*
+llm/torchlightning/*logs*/*
