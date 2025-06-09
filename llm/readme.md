@@ -63,6 +63,17 @@ padding:
 
 Transformer、 BERT、 GPT及其变种
 
+
+
+# Transformer
+
+
+
+1. 对输入的文字或信息进行编码：tokenized &embdding;
+2. multi-head attention;
+
+
+
 # 大语言模型
 
 ## 主流大语言模型

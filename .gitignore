@@ -10,3 +10,5 @@ llm/torchlightning/MNIST/raw/*
 llm/torchlightning/data/*
 llm/torchlightning/lightning_logs/*
 llm/torchlightning/*logs*/*
+llm/LLMs-from-scratch/.chainlit/*
+*.pth
