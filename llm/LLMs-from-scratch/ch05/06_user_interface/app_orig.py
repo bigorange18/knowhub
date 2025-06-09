@@ -9,10 +9,11 @@ import chainlit
 
 # For llms_from_scratch installation instructions, see:
 # https://github.com/rasbt/LLMs-from-scratch/tree/main/pkg
-from llms_from_scratch.ch04 import GPTModel
-from llms_from_scratch.ch05 import (
-    download_and_load_gpt2,
-    generate,
+from gpt import GPTModel
+
+# from llms_from_scratch.ch04 import GPTModel
+from lib import download_and_load_gpt2, generate
+from previous_chapters import (
     load_weights_into_gpt,
     text_to_token_ids,
     token_ids_to_text,
