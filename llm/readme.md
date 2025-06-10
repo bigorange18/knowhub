@@ -103,7 +103,13 @@ STAGE3:
 
 
 
-
+1. each training epoch
+2. batch training
+3. 上次迭代的梯度重置
+4. 计算当前batch的loss
+5. 反向传播计算loss梯度
+6. 更新loss梯度
+7. 打印验证集loss
 
 
 
