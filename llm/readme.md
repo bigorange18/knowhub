@@ -74,7 +74,40 @@ Transformer、 BERT、 GPT及其变种
 
 
 
-# 大语言模型
+# 大语言模型LLM
+
+STAGE1:
+
+1. 准备数据&采样
+2. Attention mechanism
+3. LLM architecture
+
+pretraining
+
+STAGE2:
+
+1. training loop
+
+2. model evaluation
+
+3. load pretrained weights
+
+   
+
+
+
+STAGE3:
+
+- classifier
+- personal assistant
+
+
+
+
+
+
+
+
 
 ## 主流大语言模型
 
