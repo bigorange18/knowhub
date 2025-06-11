@@ -14,3 +14,4 @@ llm/LLMs-from-scratch/.chainlit/*
 *.pth
 *.zip
 *.tsv
+*.csv
