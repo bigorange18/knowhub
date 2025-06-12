@@ -59,7 +59,7 @@ def data_load_SMS_dataset(file_path, train_ratio=0.7, val_ration=0.2):
         "spam": 1
     }
     balance_df['label'] = balance_df['label'].map(map_dict)
-    df = df.sample(frac=1, random_state=123).reset_index(drop=True)
+    df = balance_df.sample(frac=1, random_state=123).reset_index(drop=True)
     tran_end = int(len(df) * train_ratio)
     val_end = tran_end + int(len(df) * val_ration)
     train_df = df[:tran_end]

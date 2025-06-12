@@ -48,15 +48,10 @@ def create_dataloader_v1(txt, batch_size=4, max_length=256,
 
     return dataloader
 
-
-#####################################
-# Chapter 3
-#####################################
 class MultiHeadAttention(nn.Module):
     def __init__(self, d_in, d_out, context_length, dropout, num_heads, qkv_bias=False):
         super().__init__()
         assert d_out % num_heads == 0, "d_out must be divisible by num_heads"
-
         self.d_out = d_out
         self.num_heads = num_heads
         self.head_dim = d_out // num_heads  # Reduce the projection dim to match desired output dim
@@ -69,7 +64,7 @@ class MultiHeadAttention(nn.Module):
         self.register_buffer("mask", torch.triu(torch.ones(context_length, context_length), diagonal=1))
 
     def forward(self, x):
-        b, num_tokens, d_in = x.shape
+        b, num_tokens, __ = x.shape
 
         keys = self.W_key(x)  # Shape: (b, num_tokens, d_out)
         queries = self.W_query(x)
@@ -107,10 +102,6 @@ class MultiHeadAttention(nn.Module):
 
         return context_vec
 
-
-#####################################
-# Chapter 4
-#####################################
 class LayerNorm(nn.Module):
     def __init__(self, emb_dim):
         super().__init__()
@@ -197,7 +188,7 @@ class GPTModel(nn.Module):
         self.out_head = nn.Linear(cfg["emb_dim"], cfg["vocab_size"], bias=False)
 
     def forward(self, in_idx):
-        batch_size, seq_len = in_idx.shape
+        __, seq_len = in_idx.shape
         tok_embeds = self.tok_emb(in_idx)
         pos_embeds = self.pos_emb(torch.arange(seq_len, device=in_idx.device))
         x = tok_embeds + pos_embeds  # Shape [batch_size, num_tokens, emb_size]
