@@ -7,44 +7,11 @@
 @Contact :   chenorange2219@gmail.com
 '''
 
-# here put the import lib
-
-
-import os
-import urllib.request
-import zipfile
-import pandas as pd
-from pathlib import Path
-import tiktoken
 import torch
-from torch.utils.data import DataLoader
 torch.manual_seed(123)
 from cfg.cfg import *
-from utils.load_smss_dataset import SMSSDataset, SpamDataset
 from model.gpt import GPTModel
 from utils.utils import *
-
-
-def download_and_zip_data(url, zip_path, extracted_path, data_file_path, save_data_file_path):
-    if save_data_file_path.exists():
-        print("Data already downloaded")
-        return
-    
-    with urllib.request.urlopen(url) as response:
-        with open(zip_path, 'wb') as f:
-            f.write(response.read())
-
-    with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-        zip_ref.extractall(extracted_path)
-
-    original_file_path = Path(extracted_path) / "SMSSpamCollection"
-    os.rename(original_file_path, data_file_path)
-    print(f"Data downloaded and saved to {data_file_path}")
-
-
-
-
-
 
 
 def calc_loss_batch(input_batch, target_batch, model, device):
@@ -103,9 +70,6 @@ def evaluate_model(model, train_loader, val_loader, device, eval_iter):
 def train_model_simple(model, train_loader, val_loader, optimizer, device, num_epochs,
                        eval_freq, eval_iter):
     # Initialize lists to track losses and tokens seen
-    train_losses, val_losses, track_tokens_seen = [], [], []
-    tokens_seen = 0
-    global_step = -1
     train_losses, val_losses, train_accs, val_accs = [], [], [], []
     examples_seen, global_step = 0, -1
 
@@ -144,8 +108,6 @@ def perpar_dataet(dataset_name='SMS'):
     file_path = load_online_dataset_zip(data_url, data_set_folder,dataset_name, file_name)
     return file_path
 
-
-
 def main():
     file_path = perpar_dataet()
     train_dataloader, eval_dataloader, _ = data_load_SMS_dataset(file_path)
@@ -158,20 +120,14 @@ def main():
         "drop_rate": 0.1,        # Dropout rate
         "qkv_bias": False        # Query-Key-Value bias
     }
-    model = GPTModel(GPT_CONFIG_124M)
-    # model.load_state_dict("test/weightmodel_10.pth")
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu") # NEW
+    epochs = 10
+    model = GPTModel(GPT_CONFIG_124M)
     model = model.to(device) # NEW
-    # print(model)
-
     # optimizer = torch.optim.SGD(model.parameters(), lr=0.5)
     optimizer = torch.optim.AdamW(model.parameters(), lr=5e-5, weight_decay=0.1)
-
-    epochs = 10
-    train_model_simple(    model, train_dataloader, eval_dataloader, optimizer, device,
+    train_model_simple(model, train_dataloader, eval_dataloader, optimizer, device,
     num_epochs=epochs, eval_freq=50, eval_iter=5, )
-    model._save_to_state_dict
-
     file_name =  "./weight/" +  f"model_{epochs}.pth"
     torch.save(model.state_dict(), file_name)
     print(f"Saved {file_name}")
