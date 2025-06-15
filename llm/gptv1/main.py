@@ -11,6 +11,7 @@ import torch
 torch.manual_seed(123)
 from cfg.cfg import *
 from model.gpt import GPTModel
+from model.modelv1 import BigramLanguageModel
 from utils.utils import *
 
 
@@ -120,14 +121,22 @@ def main():
         "drop_rate": 0.1,        # Dropout rate
         "qkv_bias": False        # Query-Key-Value bias
     }
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu") # NEW
     epochs = 10
-    model = GPTModel(GPT_CONFIG_124M)
-    model = model.to(device) # NEW
+    model = BigramLanguageModel(GPT_CONFIG_124M)
+    # model = GPTModel(GPT_CONFIG_124M)
+    
+    model = model.to(DEVICE) # NEW
     # optimizer = torch.optim.SGD(model.parameters(), lr=0.5)
     optimizer = torch.optim.AdamW(model.parameters(), lr=5e-5, weight_decay=0.1)
-    train_model_simple(model, train_dataloader, eval_dataloader, optimizer, device,
-    num_epochs=epochs, eval_freq=50, eval_iter=5, )
+    train_model_simple(
+        model, 
+        train_dataloader, 
+        eval_dataloader,
+        optimizer, 
+        DEVICE,
+        num_epochs=epochs, 
+        eval_freq=50, 
+        eval_iter=5)
     file_name =  "./weight/" +  f"model_{epochs}.pth"
     torch.save(model.state_dict(), file_name)
     print(f"Saved {file_name}")
