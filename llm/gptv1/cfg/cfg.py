@@ -1,3 +1,4 @@
+import torch
 from pathlib import Path
 
 WORKFOLDER = Path.cwd().resolve()
@@ -9,6 +10,7 @@ DATASETMAP = {
         "name": "SMSSpamCollection"}
 }
 
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu") # NEW
 
 
 
