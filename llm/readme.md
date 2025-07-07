@@ -161,43 +161,6 @@ padding:
 
 
 
-# 大语言模型LLM
-
-STAGE1:
-
-1. 准备数据&采样
-2. Attention mechanism
-3. LLM architecture
-
-pretraining
-
-STAGE2:
-
-1. training loop
-
-2. model evaluation
-
-3. load pretrained weights
-
-   
-
-
-
-STAGE3:
-
-- classifier
-- personal assistant
-
-
-
-1. each training epoch
-2. batch training
-3. 上次迭代的梯度重置
-4. 计算当前batch的loss
-5. 反向传播计算loss梯度
-6. 更新loss梯度
-7. 打印验证集loss
-
 
 
 
@@ -259,25 +222,9 @@ word2vec
 
 
 
-#### P-Tuning领域模型微调
+## 
 
-#### Instruct-Tuning指令微调
-
-#### Loar-QLora微调
-
-#### RLHF基于人类反馈的强化学习微调
-
-实战代码演
-
-## 提升工程（Prompt Engineering)
-
-## 大模型的微调与预训练
-
-LLam-Factory
-
-## 大模型的量化
-
-## 模型的部署
+## 
 
 # 面试
 
