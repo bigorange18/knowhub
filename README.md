@@ -34,18 +34,14 @@ git clone https://ghp.ci/https://github.com/bigorange18/knowhub.git
 1. 网络编程
 2. cmake模版
 
-
 ---
-
-
-
 
 ## llm
 
-[跟着scratch学习llm基础知识](https://github.com/bigorange18/knowhub/tree/main/llm/LLMs-from-scratch "llm"), 从最基础的python语法，到embdding->transformer->llm都有讲解。
 
-
-
+       1. [gptv1](https://github.com/bigorange18/knowhub/tree/main/llm/gptv1), 根据网上搭建tranformer,并训练自己的模型；
+       2. [跟着scratch学习llm基础知识](https://github.com/bigorange18/knowhub/tree/main/llm/LLMs-from-scratch "llm"), 从最基础的python语法，到embdding->transformer->llm都有讲解；
+    1. 
 
 ---
 
