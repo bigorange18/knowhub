@@ -29,3 +29,16 @@ do
         echo ${key}
     fi
 done
+
+for i in {1..10}; do
+    echo $i
+done
+
+count=1
+while [ ${count} -le 6 ]; 
+do
+    echo "当前cout: ${count}"
+    ((count++))
+done
+
+df -h
