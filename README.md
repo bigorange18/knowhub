@@ -32,7 +32,7 @@ git clone https://ghp.ci/https://github.com/bigorange18/knowhub.git
 ## cpptest
 
 1. 网络编程
-2. cmake模版
+2. [cmake模版]([knowhub/cpptest/readme.md at main · bigorange18/knowhub · GitHub](https://github.com/bigorange18/knowhub/blob/main/cpptest/readme.md))
 
 ---
 
