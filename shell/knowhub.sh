@@ -42,3 +42,4 @@ do
 done
 
 df -h
+nvidia-smi
