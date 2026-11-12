@@ -1,17 +1,35 @@
-llm/*.ipynb
-llm/.env
-*build/*
-*build
-.venv
-.gradio/*
-*.ckpt
-llm/torchlightning/MNIST/raw/*
-*_pycache__
-llm/torchlightning/data/*
-llm/torchlightning/lightning_logs/*
-llm/torchlightning/*logs*/*
-llm/LLMs-from-scratch/.chainlit/*
+# ===== 密钥 =====
+.env
+*.pem
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# ===== 模型权重 / 训练产物 =====
 *.pth
+*.pt
+*.ckpt
+*.safetensors
+*.onnx
+weights/
+lightning_logs/
+runs/
+
+# ===== 数据集（体积大，不入库）=====
 *.zip
 *.tsv
 *.csv
+
+# ===== C++ / CMake =====
+build/
+cmake-build-*/
+
+# ===== 工具缓存 =====
+.gradio/
+.memsearch/
+.pytest_cache/
