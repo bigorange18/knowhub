@@ -13,51 +13,67 @@
 
 # knowhub
 
-技术笔记 + 练手代码。笔记按主题归档，代码都是自己手写的实验项目，不放第三方仓库副本。
+实验项目集。每个实验一个目录，自带 `readme.md` 记录**目的 / 方法 / 怎么跑 / 结果 / 结论**，代码都能直接跑。
+不放第三方仓库副本，权重和数据集也不进 git。
 
-## 目录
+## 实验
 
-### llm —— 大模型
+| 实验 | 方向 | 状态 | 一句话结论 |
+| :-- | :-- | :-- | :-- |
+| [stereo-vision](experiments/stereo-vision/) | 双目视觉：标定 → 校正 → 匹配 → 深度 | 🔬 进行中 | 路线图已列，方向待定 |
+| [gpt-from-scratch](experiments/gpt-from-scratch/) | 从零实现 GPT-2（124M 配置）+ SMS 垃圾短信分类 | ✅ 可训练 | 手写注意力与 LoRA；指标还没记录 |
+| [qianfan-api](experiments/qianfan-api/) | 百度千帆 / 文心一言 API | ✅ 可运行 | SDK 与原生 HTTP 两种调用方式 |
+| [lightning-mnist](experiments/lightning-mnist/) | PyTorch Lightning + MNIST 自编码器 | ⚠️ 待整理 | `test()` 里 ckpt 路径写死 |
+| [langchain](experiments/langchain/) | LangChain 消息模板 + 千帆 ChatEndpoint | ✅ 可运行 | 代理地址写死在代码里 |
+| [pytest-mlp](experiments/pytest-mlp/) | pytest 单元测试（sklearn 随机森林） | ✅ 4 passed | 覆盖训练 / 预测 / 存取 |
+| [pandas-basics](experiments/pandas-basics/) | pandas Series / 多层索引 练习 | 📓 笔记 | 32 个 cell 的练习 |
+| [jieba-tokenize](experiments/jieba-tokenize/) | jieba 分词 | ✅ 可运行 | 最小示例 |
+| [gradio-demo](experiments/gradio-demo/) | Gradio 最小 Web 界面 | ✅ 可运行 | `launch(share=True)` |
+
+## 笔记
+
+| 笔记 | 内容 |
+| :-- | :-- |
+| [notes/llm.md](notes/llm.md) | Transformer 结构、LoRA / QLoRA、RLHF、Prompt 工程、大模型面试题 |
+| [notes/python-interview.md](notes/python-interview.md) | Python 面试题（第 6 题还没写完） |
+
+## C++
 
 | 路径 | 内容 |
 | :-- | :-- |
-| [readme.md](llm/readme.md) | LLM 学习笔记：Transformer 结构、LoRA / QLoRA / RLHF 等微调方法、Prompt 工程、面试题 |
-| [gptv1/](llm/gptv1) | 从零实现 GPT：手写因果多头注意力 + LoRA，在 SMS Spam 数据集上做分类微调 |
-| [llm_qianfan/](llm/llm_qianfan) | 百度千帆 API 调用 |
-| [langechain_study.py](llm/langechain_study.py) | LangChain 提示词模板与消息占位符 |
-| [torchlightning/](llm/torchlightning) | PyTorch Lightning 训练 MNIST |
-| [nlp/](llm/nlp) | jieba 分词 |
+| [cpp/readme.md](cpp/readme.md) | CMake 速查：常用宏 + 一份完整 CMakeLists 的注释示例 |
+| [cpp/webserver/](cpp/webserver/) | C++ 工程骨架（gflags + 多级 CMake），内含文件读写 / 指针 / 模板交换等练习 |
+| [cpp/cvtest/](cpp/cvtest/) | C++ 编译环境验证 |
 
-### cpptest —— C++
+## 目录约定
 
-| 路径 | 内容 |
+```
+experiments/<名字>/
+├── readme.md        # 目的、方法、怎么跑、结果、结论
+├── main.py          # 入口
+└── requirements.txt
+```
+
+- 新实验从 [experiments/_template](experiments/_template/) 复制。
+- 权重（`*.pth` / `*.ckpt` / `*.safetensors`）、数据集（`*.zip` / `*.csv`）、CMake 构建产物都不入库，见 [.gitignore](.gitignore)。
+
+## 环境
+
+| 用途 | 环境 |
 | :-- | :-- |
-| [readme.md](cpptest/readme.md) | CMake 速查：常用宏 + 一份完整 CMakeLists 的注释示例 |
-| [webserver/](cpptest/webserver) | C++ 工程骨架（gflags + 多级 CMake），内含文件读写 / 指针 / 模板交换等练习 |
-| [cvtest/](cpptest/cvtest) | C++ 编译环境验证 |
+| 深度学习（torch 2.7.0 + cu126，CUDA 可用） | conda `nn`（Python 3.11.11） |
+| 单元测试 | `python -m pytest experiments/pytest-mlp` |
 
-### 其它
-
-| 路径 | 内容 |
-| :-- | :-- |
-| [pytest/base.ipynb](pytest/base.ipynb) | Python 基础实验 |
-| [pytest/example/](pytest/example) | 用 pytest 测一个 sklearn 随机森林小模型 |
-| [gradio/base.py](gradio/base.py) | Gradio 最小示例 |
-| [other/](other/readme.md) | 杂项 |
+```bash
+conda activate nn
+python experiments/gpt-from-scratch/main.py
+```
 
 ## 使用
 
 ```bash
-# 克隆
-git clone https://github.com/bigorange18/knowhub.git
-# 国内加速
-git clone https://ghp.ci/https://github.com/bigorange18/knowhub.git
-```
+git clone git@github.com:bigorange18/knowhub.git
 
-```bash
-# 环境变量：复制模板后填入自己的 key，.env 已被 gitignore
+# 环境变量：复制模板后填自己的 key，.env 已被 gitignore
 cp .env.example .env
 ```
-
-> 模型权重（`*.pth` / `*.ckpt` / `*.safetensors`）、数据集（`*.zip` / `*.csv`）、
-> CMake 构建产物均不入库，需要时按各目录的 README 自行下载或重新生成。

@@ -11,7 +11,7 @@ def mkdir_folder(folder_path:Path):
     if folder_path.exists():
         return True
     else:
-        return folder_path.mkdir()
+        return folder_path.mkdir(parents=True, exist_ok=True)
 
 def load_online_dataset_zip(url, folder:Path, name:str, file_name:str):
     if folder.is_dir():

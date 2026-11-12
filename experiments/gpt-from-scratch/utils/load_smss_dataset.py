@@ -14,48 +14,6 @@ import torch
 from torch.utils.data import  Dataset
 
 
-class BaseDataset(Dataset):
-    def __init__(self, name) -> None:
-        super().__init__()
-        self.name = name
-
-    def __repr__(self) -> str:
-        return super().__repr__()
-
-
-
-class SMSSDataset(Dataset):
-    def __init__(self, csv_file:pd.DataFrame, tokenizer, max_len=None, pad_token_id=50256):
-        self.data = csv_file
-        self.encode_texts = [tokenizer.encode(text) for text in self.data['text']]
-    
-        if max_len is None:
-            self.max_len = self._longest_encode_length()
-        else:
-            self.max_len = max_len
-            self.encode_texts = [
-                self.encode_texts[:self.max_len]
-            ]
-    
-    def __getitem__(self, index):
-        encode = self.encode_texts[index]
-        label = self.data.iloc[index]['label']
-        return torch.tensor(encode, dtype=torch.long), torch.tensor(label, dtype=torch.long)
-
-    def __len__(self):
-        return len(self.data)
-
-    def _longest_encode_length(self):
-        max_length = 0
-        for encode in self.encode_texts:
-            encode_length = len(encode)
-            if encode_length > max_length:
-                max_length = encode_length
-        # return max([len(encode) for encode in self.encode_texts])
-        return max_length
-    
-
-
 class SpamDataset(Dataset):
     def __init__(self, csv_file, tokenizer, max_length=None, pad_token_id=50256):
         # self.data = pd.read_csv(csv_file)

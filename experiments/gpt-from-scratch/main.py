@@ -137,7 +137,9 @@ def main():
         num_epochs=epochs, 
         eval_freq=50, 
         eval_iter=5)
-    file_name =  "./weight/" +  f"model_{epochs}.pth"
+    weight_dir = WORKFOLDER / "weight"
+    weight_dir.mkdir(parents=True, exist_ok=True)
+    file_name = weight_dir / f"model_{epochs}.pth"
     torch.save(model.state_dict(), file_name)
     print(f"Saved {file_name}")
 

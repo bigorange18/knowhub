@@ -1,7 +1,8 @@
 import torch
 from pathlib import Path
 
-WORKFOLDER = Path.cwd().resolve()
+# 以本文件位置定位项目根目录（cfg/ 的上一级），不依赖从哪个目录执行脚本
+WORKFOLDER = Path(__file__).resolve().parent.parent
 FILEPATH = Path(__file__)
 
 DATASETMAP = {
