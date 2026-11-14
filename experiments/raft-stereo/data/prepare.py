@@ -16,11 +16,18 @@ from __future__ import annotations
 import argparse
 import io
 import json
+import tarfile
 import zipfile
 from pathlib import Path
 
 import numpy as np
 from PIL import Image
+
+COMPRESS = False  # 由 --compress 控制；不压缩写盘快很多（图片本身已经是压缩格式）
+
+
+def save_npz(path, **arrays):
+    (np.savez_compressed if COMPRESS else np.savez)(path, **arrays)
 
 
 # --------------------------------------------------------------------------- #
@@ -174,18 +181,109 @@ def load_kitti_zip(zip_path: Path, width: int = 768) -> list[dict]:
 
 
 # --------------------------------------------------------------------------- #
+# SceneFlow（Driving / Monkaa / FlyingThings3D 的 tar 包）
+# --------------------------------------------------------------------------- #
+SF_IMG_SUFFIX = {".webp", ".png", ".jpg"}
+
+
+def _sf_key(parts: list[str]) -> str:
+    """去掉 <left|right> 这一级：a/b/c/left/0144.pfm → a/b/c/0144。"""
+    return str(Path(*parts[:-2]) / Path(parts[-1]).stem)
+
+
+def _sf_index(frames_root: Path) -> dict[str, tuple[Path, Path]]:
+    """把 frames 目录索引成 {相对路径(去掉视图级): (左图, 右图)}。
+
+    目录结构是 <focal>/<scene>/<speed>/<left|right>/<frame>.<ext>。
+    """
+    pairs: dict[str, tuple[Path, Path]] = {}
+    for p in sorted(frames_root.rglob("*")):
+        if not p.is_file() or p.suffix.lower() not in SF_IMG_SUFFIX:
+            continue
+        if p.parent.name != "left":
+            continue
+        rel = p.relative_to(frames_root)
+        right = p.parent.parent / "right" / p.name
+        if right.exists():
+            pairs[_sf_key(list(rel.parts))] = (p, right)
+    return pairs
+
+
+def _sf_name(key: str) -> str:
+    parts = Path(key).parts
+    tag = "_".join(x.replace("_focallength", "") for x in parts[:-1])
+    return f"sf_{tag}_{parts[-1]}"
+
+
+def load_sceneflow(frames_root: Path, disp_tar: Path, out_dir: Path,
+                   width: int = 0, limit: int = 0) -> int:
+    """一边流式读 disparity 的 tar.bz2，一边配对写 npz（不解压出 18GB 的 pfm）。"""
+    pairs = _sf_index(frames_root)
+    print(f"找到 {len(pairs)} 对图像", flush=True)
+
+    done = 0
+    with tarfile.open(disp_tar, "r:bz2") as tf:
+        for member in tf:
+            if not member.isfile() or not member.name.endswith(".pfm"):
+                continue
+            parts = list(Path(member.name).parts)[1:]  # 去掉 tar 顶层目录名
+            if len(parts) < 2 or parts[-2] != "left":
+                continue  # 只用左视图的视差；disp1 是右视图的，坐标约定不一样
+            key = _sf_key(parts)
+            if key not in pairs:
+                continue
+            left_p, right_p = pairs[key]
+            disp = read_pfm(tf.extractfile(member).read())
+            left = np.array(Image.open(left_p).convert("RGB"))
+            right = np.array(Image.open(right_p).convert("RGB"))
+            if disp.shape != left.shape[:2]:
+                print(f"  [skip] {key}: 视差 {disp.shape} 和图像 {left.shape[:2]} 不一致", flush=True)
+                continue
+            w = width or left.shape[1]
+            sample = _make_sample(left, right, disp, disp > 0, w)
+            save_npz(out_dir / f"{_sf_name(key)}.npz", **sample)
+            done += 1
+            if done % 200 == 0:
+                print(f"  {done} 对已转换", flush=True)
+            if limit and done >= limit:
+                break
+    return done
+
+
+# --------------------------------------------------------------------------- #
 # CLI
 # --------------------------------------------------------------------------- #
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--src", required=True, help="zip 所在目录")
+    p.add_argument("--src", help="zip 所在目录（middlebury / kitti）")
     p.add_argument("--out", required=True, help="npz 输出目录")
-    p.add_argument("--dataset", choices=["middlebury", "kitti"], required=True)
-    p.add_argument("--width", type=int, default=768, help="统一缩放到这个宽度")
+    p.add_argument("--dataset", choices=["middlebury", "kitti", "sceneflow"], required=True)
+    p.add_argument("--width", type=int, default=768, help="统一缩放到这个宽度，0 = 保持原尺寸")
+    p.add_argument("--frames-dir", help="SceneFlow 解压后的 frames_cleanpass* 目录")
+    p.add_argument("--disp-tar", help="SceneFlow 的 disparity tar.bz2（不用解压）")
+    p.add_argument("--limit", type=int, default=0, help="只转前 N 对，调试用")
+    p.add_argument("--compress", action="store_true",
+                   help="npz 用 deflate 压缩（省一半磁盘，但写盘慢 3~4 倍）")
     args = p.parse_args()
 
-    src, out = Path(args.src), Path(args.out)
+    global COMPRESS
+    COMPRESS = args.compress
+
+    out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
+
+    if args.dataset == "sceneflow":
+        if not args.frames_dir or not args.disp_tar:
+            raise SystemExit("sceneflow 需要 --frames-dir 和 --disp-tar")
+        n = load_sceneflow(Path(args.frames_dir), Path(args.disp_tar), out,
+                           args.width, args.limit)
+        (out / "meta.json").write_text(
+            json.dumps({"dataset": "sceneflow", "width": args.width, "pairs": n},
+                       indent=2, ensure_ascii=False), encoding="utf-8")
+        print(f"完成 {n} 对，写到 {out}")
+        return
+
+    src = Path(args.src)
     zips = sorted(src.glob("*.zip"))
     if not zips:
         raise SystemExit(f"{src} 里没有 .zip")
@@ -195,7 +293,7 @@ def main():
         if args.dataset == "middlebury":
             name = zp.stem.replace("-perfect", "")
             sample, calib = load_middlebury(zp, args.width)
-            np.savez_compressed(out / f"{name}.npz", **sample)
+            save_npz(out / f"{name}.npz", **sample)
             h, w = sample["disp"].shape
             meta["scenes"].append({
                 "name": name, "h": int(h), "w": int(w),
@@ -210,7 +308,7 @@ def main():
         else:
             samples = load_kitti_zip(zp, args.width)
             for i, s in enumerate(samples):
-                np.savez_compressed(out / f"{zp.stem}_{i:06d}.npz", **s)
+                save_npz(out / f"{zp.stem}_{i:06d}.npz", **s)
             h, w = samples[0]["disp"].shape
             meta["scenes"].append({"name": zp.stem, "count": len(samples), "h": int(h), "w": int(w)})
             print(f"{zp.stem}: {len(samples)} 对，{w}x{h}")

@@ -1,0 +1,294 @@
+{
+  "summary": {
+    "weights": "weight/real.pth",
+    "data": "F:\\datasets\\stereo\\prepared\\sceneflow",
+    "iters": 12,
+    "max_disp": 320,
+    "images": 40,
+    "epe": 55.85842389614428,
+    "bad1": 90.70046738961443,
+    "bad3": 79.20438821517412
+  },
+  "per_image": [
+    {
+      "file": "sf_35mm_scene_forwards_fast_0001.npz",
+      "epe": 44.79579446517413,
+      "bad1": 80.50450870646766,
+      "bad3": 62.90189676616915,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_fast_0029.npz",
+      "epe": 67.42462686567164,
+      "bad1": 96.52304881840796,
+      "bad3": 91.2119092039801,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_fast_0057.npz",
+      "epe": 53.39563121890547,
+      "bad1": 87.09032960199005,
+      "bad3": 68.58597636815921,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_fast_0086.npz",
+      "epe": 77.42629819651741,
+      "bad1": 96.21249222636817,
+      "bad3": 89.8017723880597,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_fast_0114.npz",
+      "epe": 69.11480099502488,
+      "bad1": 91.34153451492537,
+      "bad3": 81.94768345771143,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_fast_0142.npz",
+      "epe": 57.18370258084577,
+      "bad1": 94.45584577114428,
+      "bad3": 87.7001710199005,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_fast_0170.npz",
+      "epe": 49.33225668532339,
+      "bad1": 89.80235541044776,
+      "bad3": 74.63833177860697,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_fast_0198.npz",
+      "epe": 55.725167133084575,
+      "bad1": 91.74634639303483,
+      "bad3": 80.20425217661692,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_fast_0226.npz",
+      "epe": 50.56697372512438,
+      "bad1": 91.67696672885572,
+      "bad3": 82.73806747512438,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_fast_0255.npz",
+      "epe": 50.55575248756219,
+      "bad1": 92.29030628109453,
+      "bad3": 80.0575248756219,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_fast_0283.npz",
+      "epe": 57.58388137437811,
+      "bad1": 92.95106498756219,
+      "bad3": 81.76869558457712,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0011.npz",
+      "epe": 47.027402052238806,
+      "bad1": 82.19430192786069,
+      "bad3": 65.22213152985074,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0039.npz",
+      "epe": 62.017937655472636,
+      "bad1": 87.44189210199005,
+      "bad3": 71.36116293532339,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0067.npz",
+      "epe": 57.76747512437811,
+      "bad1": 95.1817086442786,
+      "bad3": 87.9932369402985,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0096.npz",
+      "epe": 57.406899098258705,
+      "bad1": 88.99292599502488,
+      "bad3": 74.3965718283582,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0124.npz",
+      "epe": 58.856879664179104,
+      "bad1": 87.89684390547264,
+      "bad3": 74.53125,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0152.npz",
+      "epe": 53.39563121890547,
+      "bad1": 87.09032960199005,
+      "bad3": 68.58597636815921,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0180.npz",
+      "epe": 46.292502332089555,
+      "bad1": 85.95440764925372,
+      "bad3": 71.0263137437811,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0208.npz",
+      "epe": 61.041064210199,
+      "bad1": 95.84868625621891,
+      "bad3": 89.38802083333334,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0236.npz",
+      "epe": 59.01406638681592,
+      "bad1": 92.42498445273631,
+      "bad3": 80.72430814676616,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0265.npz",
+      "epe": 67.03217506218905,
+      "bad1": 97.08352767412936,
+      "bad3": 92.1299751243781,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0293.npz",
+      "epe": 74.18394745024875,
+      "bad1": 94.18221393034825,
+      "bad3": 88.03735230099502,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0321.npz",
+      "epe": 56.278700248756216,
+      "bad1": 94.53338774875621,
+      "bad3": 84.76640236318408,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0349.npz",
+      "epe": 54.73922963308458,
+      "bad1": 82.558496579602,
+      "bad3": 72.4815376243781,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0377.npz",
+      "epe": 55.126982276119406,
+      "bad1": 92.61777052238806,
+      "bad3": 85.4316309079602,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0405.npz",
+      "epe": 60.396556281094526,
+      "bad1": 93.17999844527363,
+      "bad3": 85.56203358208954,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0434.npz",
+      "epe": 54.68476368159204,
+      "bad1": 88.00917288557214,
+      "bad3": 74.51842350746269,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0462.npz",
+      "epe": 47.27410991915423,
+      "bad1": 92.1913868159204,
+      "bad3": 79.41717195273633,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0490.npz",
+      "epe": 54.25324937810945,
+      "bad1": 96.00163246268657,
+      "bad3": 90.20638992537313,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0518.npz",
+      "epe": 55.07428482587065,
+      "bad1": 90.78863495024876,
+      "bad3": 80.94119247512438,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0546.npz",
+      "epe": 59.26804648631841,
+      "bad1": 94.29454291044776,
+      "bad3": 85.78280472636816,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0575.npz",
+      "epe": 45.623472481343285,
+      "bad1": 81.01329291044776,
+      "bad3": 64.50618003731343,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0603.npz",
+      "epe": 51.33026663557214,
+      "bad1": 91.35047419154229,
+      "bad3": 82.675878420398,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0631.npz",
+      "epe": 43.01890547263682,
+      "bad1": 80.05266635572139,
+      "bad3": 60.03012282338308,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0659.npz",
+      "epe": 51.024821206467664,
+      "bad1": 92.79112251243781,
+      "bad3": 82.20013215174129,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0687.npz",
+      "epe": 51.46808146766169,
+      "bad1": 91.95584577114427,
+      "bad3": 80.06374378109453,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0715.npz",
+      "epe": 52.486780939054725,
+      "bad1": 91.56560945273633,
+      "bad3": 79.28754664179104,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0744.npz",
+      "epe": 59.81626243781095,
+      "bad1": 93.32555970149254,
+      "bad3": 84.18221393034825,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0772.npz",
+      "epe": 53.068407960199,
+      "bad1": 91.48981654228857,
+      "bad3": 76.58776430348259,
+      "valid_px": 514560
+    },
+    {
+      "file": "sf_35mm_scene_forwards_slow_0800.npz",
+      "epe": 52.263168532338305,
+      "bad1": 91.41266324626865,
+      "bad3": 74.58177860696517,
+      "valid_px": 514560
+    }
+  ]
+}

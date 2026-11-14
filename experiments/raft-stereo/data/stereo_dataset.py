@@ -109,12 +109,28 @@ class StereoPairs(Dataset):
         return {"left": left, "right": right, "disparity": disp, "valid": valid}
 
 
+def _group_of(path: Path) -> str:
+    """同一个场景/序列的 npz 归成一组，切分时整组进 train 或 val。
+
+    SceneFlow 的文件名是 sf_<焦距>_<方向>_<速度>_<帧号>，去掉帧号才是序列名；
+    Middlebury 每个文件就是一个场景（文件名就是场景名）。
+    """
+    stem = path.stem
+    if stem.startswith("sf_"):
+        return stem.rsplit("_", 1)[0]
+    return stem
+
+
 def split_scenes(root: str | Path, val_ratio: float = 0.25) -> tuple[list, list]:
-    """按文件把数据集切成 train / val（同一场景的 patch 不跨集，避免泄漏）。"""
+    """按场景把数据集切成 train / val（同一场景的 patch 不跨集，避免泄漏）。"""
     files = sorted(Path(root).glob("*.npz"))
     if not files:
         raise FileNotFoundError(f"{root} 里没有 npz")
-    n_val = max(1, int(round(len(files) * val_ratio)))
-    if len(files) == 1:  # 只有一张图时两边都用它，仅用于冒烟
+    groups = sorted({_group_of(p) for p in files})
+    if len(groups) <= 1:  # 只有一个场景时两边都用它，仅用于冒烟
         return files, files
-    return files[:-n_val], files[-n_val:]
+    n_val = min(max(1, int(round(len(groups) * val_ratio))), len(groups) - 1)
+    val_groups = set(groups[-n_val:])
+    train = [p for p in files if _group_of(p) not in val_groups]
+    val = [p for p in files if _group_of(p) in val_groups]
+    return train, val

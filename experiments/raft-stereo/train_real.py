@@ -101,6 +101,8 @@ def main():
     p.add_argument("--lr", type=float, default=2e-4)
     p.add_argument("--hidden", type=int, default=64)
     p.add_argument("--eval_every", type=int, default=200)
+    p.add_argument("--val_limit", type=int, default=40,
+                   help="验证集最多用多少张图（SceneFlow 有上千张，全评太慢）")
     p.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     p.add_argument("--save", default="weight/real.pth")
     p.add_argument("--fig", default="figures/real.png")
@@ -112,8 +114,11 @@ def main():
     dev = torch.device(args.device)
 
     train_files, val_files = split_scenes(args.data, val_ratio=0.25)
-    print(f"train scenes: {[f.stem for f in train_files]}", flush=True)
-    print(f"val   scenes: {[f.stem for f in val_files]}", flush=True)
+    if args.val_limit and len(val_files) > args.val_limit:
+        idx = np.linspace(0, len(val_files) - 1, args.val_limit).round().astype(int)
+        val_files = [val_files[i] for i in np.unique(idx)]
+    print(f"train files: {len(train_files)} ({len({f.stem.rsplit('_', 1)[0] for f in train_files})} 组)", flush=True)
+    print(f"val   files: {len(val_files)}  {[f.stem for f in val_files[:3]]} ...", flush=True)
 
     crop = tuple(args.crop)
     train_ds = StereoPairs(files=train_files, crop=crop, augment=True, max_disp=args.max_disp)

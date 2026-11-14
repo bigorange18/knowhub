@@ -21,7 +21,7 @@
 | 实验 | 方向 | 状态 | 一句话结论 |
 | :-- | :-- | :-- | :-- |
 | [stereo-vision](experiments/stereo-vision/) | 双目视觉：标定 → 校正 → 匹配 → 深度 | 🔬 进行中 | 路线图已列，方向待定 |
-| [raft-stereo](experiments/raft-stereo/) | 从零实现 RAFT-Stereo（3DV 2021），并在 Middlebury 2014 上训练 | ✅ 跑通 | 合成图过拟合 0.04 px；Middlebury 1200 步 val EPE 5.7 px |
+| [raft-stereo](experiments/raft-stereo/) | 从零实现 RAFT-Stereo（3DV 2021），Middlebury 2014 + SceneFlow 训练 | ✅ 跑通 | 合成图过拟合 0.04 px；Middlebury 5.7 px；SceneFlow 预训练零样本迁移到 Middlebury 5.8 px |
 | [gpt-from-scratch](experiments/gpt-from-scratch/) | 从零实现 GPT-2（124M 配置）+ SMS 垃圾短信分类 | ✅ 可训练 | 手写注意力与 LoRA；指标还没记录 |
 | [qianfan-api](experiments/qianfan-api/) | 百度千帆 / 文心一言 API | ✅ 可运行 | SDK 与原生 HTTP 两种调用方式 |
 | [lightning-mnist](experiments/lightning-mnist/) | PyTorch Lightning + MNIST 自编码器 | ⚠️ 待整理 | `test()` 里 ckpt 路径写死 |

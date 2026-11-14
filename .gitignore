@@ -36,3 +36,5 @@ cmake-build-*/
 .gradio/
 .memsearch/
 .pytest_cache/
+logs_*.txt
+*.log
