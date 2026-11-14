@@ -19,7 +19,7 @@
 | 2 极线校正 | Bouguet 立体校正，左右图极线水平对齐 | 校正前后对比图；校正后极线行差 ≈ 0 |
 | 3 传统匹配 | BM / SGBM 基线，理解代价计算 → 代价聚合 → 视差计算 → 视差优化 | 视差图 + 参数敏感性表 |
 | 4 深度与点云 | $Z = f\,B / d$，反投影到 3D，点云滤波与可视化 | 点云文件 + 可视化截图 |
-| 5 深度学习匹配 | PSMNet / RAFT-Stereo / IGEV / CREStereo 选一个复现 | 已从 [raft-stereo](../raft-stereo/) 开始：从零实现 + 合成图验证 |
+| 5 深度学习匹配 | PSMNet / RAFT-Stereo / IGEV / CREStereo 选一个复现 | 已从 [raft-stereo](../raft-stereo/) 开始：从零实现，Middlebury 2014 上可训练 |
 | 6 评测 | 视差误差曲线、坏点率、深度误差 | 汇总表，写进本文件的「结果」 |
 
 ## 数据
@@ -52,7 +52,7 @@ pip install opencv-python-headless matplotlib
 
 | 阶段 | 结果 |
 | :-- | :-- |
-| 5 深度匹配 | [raft-stereo](../raft-stereo/) 从零实现，合成图上 EPE 0.07 px、bad-1px 0% |
+| 5 深度匹配 | [raft-stereo](../raft-stereo/) 从零实现，Middlebury 验证 EPE 5.7 px（0.84 M 参数） |
 
 （其余跑完再填。）
 

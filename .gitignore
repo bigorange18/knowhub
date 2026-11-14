@@ -24,6 +24,9 @@ runs/
 *.zip
 *.tsv
 *.csv
+*.npz
+*.npy
+experiments/raft-stereo/weight/
 
 # ===== C++ / CMake =====
 build/

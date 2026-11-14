@@ -194,6 +194,7 @@ class ConvexUpsampler(nn.Module):
         )
 
     def forward(self, disp: torch.Tensor, feat: torch.Tensor, scale: int = 4) -> torch.Tensor:
+        """disp 是 1/4 分辨率上的视差（低分辨率像素），返回原分辨率的视差（像素）。"""
         b, _, h, w = disp.shape
         mask = self.mask(feat)                                  # [B,9,h,w]
         mask = F.interpolate(mask, scale_factor=scale, mode="bilinear", align_corners=False)
@@ -204,7 +205,8 @@ class ConvexUpsampler(nn.Module):
         neigh = F.unfold(padded, kernel_size=3)                 # [B,9,h*w]
         neigh = neigh.view(b, 9, h, w)
         neigh = F.interpolate(neigh, scale_factor=scale, mode="nearest")
-        return (mask * neigh).sum(dim=1, keepdim=True)
+        # 低分辨率像素 → 原图像素要乘 scale（和 RAFT 里 flow 上采样一致）
+        return (mask * neigh).sum(dim=1, keepdim=True) * scale
 
 
 # --------------------------------------------------------------------------- #
