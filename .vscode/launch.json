@@ -1,7 +1,6 @@
 {
-    // 使用 IntelliSense 了解相关属性。 
-    // 悬停以查看现有属性的描述。
-    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    // 调试配置。cwd 都指向具体实验目录：脚本里的 weight/、figures/、data/ 都是相对路径，
+    // 用仓库根目录启动会找不到文件。
     "version": "0.2.0",
     "configurations": [
         {
@@ -11,6 +10,134 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true
+        },
+        {
+            // 单对合成图过拟合，几十秒就能跑完，用来验证前向/反向/loss 链路
+            "name": "raft-stereo: 合成图过拟合 (300 步)",
+            "type": "python",
+            "request": "launch",
+            "python": "E:\\anaconda\\envs\\nn\\python.exe",
+            "program": "${workspaceFolder}/experiments/raft-stereo/train_overfit.py",
+            "args": ["--steps", "300"],
+            "cwd": "${workspaceFolder}/experiments/raft-stereo",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "presentation": { "group": "RAFT-Stereo", "order": 1 }
+        },
+        {
+            // Middlebury：8 场景训练 / Shelves+Vintage 验证，约 5 分钟
+            "name": "raft-stereo: 真实数据训练 (Middlebury)",
+            "type": "python",
+            "request": "launch",
+            "python": "E:\\anaconda\\envs\\nn\\python.exe",
+            "program": "${workspaceFolder}/experiments/raft-stereo/train_real.py",
+            "args": [
+                "--data", "F:\\datasets\\stereo\\prepared\\middlebury",
+                "--steps", "1200",
+                "--max_disp", "128",
+                "--eval_every", "100"
+            ],
+            "cwd": "${workspaceFolder}/experiments/raft-stereo",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "presentation": { "group": "RAFT-Stereo", "order": 2 }
+        },
+        {
+            // SceneFlow：6 序列训练 / 2 序列验证，视差到 355 px，约 30 分钟
+            "name": "raft-stereo: 真实数据训练 (SceneFlow)",
+            "type": "python",
+            "request": "launch",
+            "python": "E:\\anaconda\\envs\\nn\\python.exe",
+            "program": "${workspaceFolder}/experiments/raft-stereo/train_real.py",
+            "args": [
+                "--data", "F:\\datasets\\stereo\\prepared\\sceneflow",
+                "--steps", "4000",
+                "--max_disp", "320",
+                "--eval_every", "400",
+                "--save", "weight/sceneflow.pth",
+                "--fig", "figures/sceneflow.png"
+            ],
+            "cwd": "${workspaceFolder}/experiments/raft-stereo",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "presentation": { "group": "RAFT-Stereo", "order": 3 }
+        },
+        {
+            // 断点调试单张图：在 model/raft_stereo.py 的 UpdateBlock.forward 里下断点
+            "name": "raft-stereo: 整图推理 (Shelves)",
+            "type": "python",
+            "request": "launch",
+            "python": "E:\\anaconda\\envs\\nn\\python.exe",
+            "program": "${workspaceFolder}/experiments/raft-stereo/infer.py",
+            "args": [
+                "--npz", "F:\\datasets\\stereo\\prepared\\middlebury\\Shelves.npz",
+                "--weights", "weight/real.pth",
+                "--iters", "12",
+                "--max_disp", "128",
+                "--out", "figures/infer_debug.png"
+            ],
+            "cwd": "${workspaceFolder}/experiments/raft-stereo",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "presentation": { "group": "RAFT-Stereo", "order": 4 }
+        },
+        {
+            "name": "raft-stereo: 评测 (Middlebury 全场景)",
+            "type": "python",
+            "request": "launch",
+            "python": "E:\\anaconda\\envs\\nn\\python.exe",
+            "program": "${workspaceFolder}/experiments/raft-stereo/eval.py",
+            "args": [
+                "--data", "F:\\datasets\\stereo\\prepared\\middlebury",
+                "--weights", "weight/real.pth",
+                "--max_disp", "128"
+            ],
+            "cwd": "${workspaceFolder}/experiments/raft-stereo",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "presentation": { "group": "RAFT-Stereo", "order": 5 }
+        },
+        {
+            "name": "raft-stereo: 评测 (SceneFlow 验证集)",
+            "type": "python",
+            "request": "launch",
+            "python": "E:\\anaconda\\envs\\nn\\python.exe",
+            "program": "${workspaceFolder}/experiments/raft-stereo/eval.py",
+            "args": [
+                "--data", "F:\\datasets\\stereo\\prepared\\sceneflow",
+                "--weights", "weight/sceneflow.pth",
+                "--split", "val",
+                "--limit", "40",
+                "--max_disp", "320"
+            ],
+            "cwd": "${workspaceFolder}/experiments/raft-stereo",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "presentation": { "group": "RAFT-Stereo", "order": 6 }
+        },
+        {
+            "name": "gpt-from-scratch: 训练",
+            "type": "python",
+            "request": "launch",
+            "python": "E:\\anaconda\\envs\\nn\\python.exe",
+            "program": "${workspaceFolder}/experiments/gpt-from-scratch/main.py",
+            "cwd": "${workspaceFolder}/experiments/gpt-from-scratch",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "presentation": { "group": "其它实验", "order": 1 }
+        },
+        {
+            // 在测试函数里下断点，pytest 会停下来
+            "name": "pytest-mlp: 运行测试",
+            "type": "python",
+            "request": "launch",
+            "module": "pytest",
+            "args": ["-v"],
+            "cwd": "${workspaceFolder}/experiments/pytest-mlp",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "python": "E:\\anaconda\\envs\\nn\\python.exe",
+            "presentation": { "group": "其它实验", "order": 2 }
         }
     ]
 }

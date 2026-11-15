@@ -1,3 +1,4 @@
 {
-
+    // 默认解释器选 conda 的 nn 环境（torch 2.7.0 + cu126），避免调试时用 base 的 Python 3.7
+    "python.defaultInterpreterPath": "E:\\anaconda\\envs\\nn\\python.exe"
 }
